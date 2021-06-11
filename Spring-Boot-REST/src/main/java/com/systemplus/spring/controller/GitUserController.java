@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,9 +31,9 @@ public class GitUserController {
 
 	@RequestMapping(value = "/repository", headers = "Accept=application/json", method = RequestMethod.GET, produces = "application/json")
 
-	@ApiResponses(value = { @ApiResponse(code = 200, message = "Succesful data received" ),
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Succesful data received"),
 			@ApiResponse(code = 404, message = "No such user found"),
-			@ApiResponse(code = 406, message = "Accept only application/json", response= ErrorResponse.class) })
+			@ApiResponse(code = 406, message = "Accept only application/json", response = ErrorResponse.class) })
 	public ResponseEntity<List<User>> getUserRepoDetails(
 			@RequestParam(name = "name", required = false, defaultValue = "Unknown") String name) {
 
@@ -51,7 +50,6 @@ public class GitUserController {
 	public List<User> getBranchAndLastCommit(List<User> userList) {
 
 		List<User> notForkedRepoList = userList.stream().filter(user -> !user.isFork()).collect(Collectors.toList());
-		
 
 		notForkedRepoList.forEach(user -> {
 			Branch[] response = restTemplate.getForObject(user.getBranchesUrl().replace("{/branch}", ""),

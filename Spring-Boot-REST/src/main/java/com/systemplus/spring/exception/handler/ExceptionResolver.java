@@ -22,7 +22,7 @@ public class ExceptionResolver extends ExceptionHandlerExceptionResolver {
 		ErrorResponse error = new ErrorResponse();
 		error.setStatus(HttpStatus.NOT_FOUND.toString());
 		error.setMessage("No such user found");
-		return new ResponseEntity<ErrorResponse>(error, HttpStatus.NOT_ACCEPTABLE);
+		return new ResponseEntity<ErrorResponse>(error, HttpStatus.NOT_FOUND);
 	}
 
 	@ResponseBody

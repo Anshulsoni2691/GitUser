@@ -2,6 +2,7 @@ package com.systemplus.spring.bean;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -11,8 +12,8 @@ import io.swagger.annotations.ApiModelProperty;
 @ApiModel
 public class User {
 
-	@ApiModelProperty(value = "repository name",name="repositoryName", example = "repo name")
-	@JsonProperty("repositoryName")
+	@ApiModelProperty(value = "repository name", name = "repositoryName", example = "repository name")
+	@JsonAlias("repositoryName")
 	private String name;
 
 	@ApiModelProperty(value = "owner", example = "owner")
@@ -36,13 +37,13 @@ public class User {
 	}
 
 	@JsonProperty("repositoryName")
-	@ApiModelProperty(value = "repository name",name="repositoryName", example = "repo name")
+	@ApiModelProperty(value = "repository name", name = "repositoryName", example = "repository name")
 	public String getName() {
 		return name;
 	}
 
-	//@ApiModelProperty(value = "repository name",name="name", example = "repo name")
-	//@JsonProperty("name")
+	@JsonAlias("name")
+	@ApiModelProperty(value = "repository name", name = "name", example = "repo name")
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -60,7 +61,7 @@ public class User {
 		return branchesUrl;
 	}
 
-	// @JsonProperty("branches_url")
+	@JsonAlias("branches_url")
 	public void setBranchesUrl(String branchesUrl) {
 		this.branchesUrl = branchesUrl;
 	}
