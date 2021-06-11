@@ -1,0 +1,107 @@
+swagger: '2.0'
+info:
+  description: Api Documentation
+  version: '1.0'
+  title: Api Documentation
+  termsOfService: 'urn:tos'
+  contact: {}
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0'
+host: 'localhost:8080'
+basePath: /
+tags:
+  - name: git-user-controller
+    description: Git User Controller
+paths:
+  /getUsers/repository:
+    get:
+      tags:
+        - git-user-controller
+      summary: getUserRepoDetails
+      operationId: getUserRepoDetailsUsingGET
+      produces:
+        - application/json
+      parameters:
+        - name: name
+          in: query
+          description: name
+          required: false
+          type: string
+          default: Unknown
+      responses:
+        '200':
+          description: Succesful data received
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/User'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: No such user found
+        '406':
+          description: Accept only application/json
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      deprecated: false
+definitions:
+  Branch:
+    type: object
+    properties:
+      commit:
+        $ref: '#/definitions/Commit'
+      name:
+        type: string
+        example: gitBranch
+        description: Branch name
+    title: Branch
+  Commit:
+    type: object
+    properties:
+      sha:
+        type: string
+        example: f37c3954ce81726fab760fc8a5d333bf852eca41
+        description: sha info
+    title: Commit
+  ErrorResponse:
+    type: object
+    properties:
+      message:
+        type: string
+        example: Error messgae
+        description: Error message
+      status:
+        type: string
+        description: Status code
+    title: ErrorResponse
+  Owner:
+    type: object
+    properties:
+      login:
+        type: string
+        example: user
+        description: Owner login info
+    title: Owner
+  User:
+    type: object
+    properties:
+      branches:
+        type: array
+        items:
+          $ref: '#/definitions/Branch'
+      branches_url:
+        type: string
+        example: branchesUrl
+        description: branchesUrl
+      owner:
+        example: owner
+        description: owner
+        $ref: '#/definitions/Owner'
+      repository_name:
+        type: string
+        example: repository name
+        description: repository name
+    title: User

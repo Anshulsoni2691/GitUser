@@ -25,6 +25,8 @@ import io.swagger.annotations.ApiResponses;
 @RestController
 @RequestMapping(path = "/getUsers")
 public class GitUserController {
+	
+	public static final String uri = "https://api.github.com/users/{name}/repos";
 
 	@Autowired
 	private RestTemplate restTemplate;
@@ -37,7 +39,6 @@ public class GitUserController {
 	public ResponseEntity<List<User>> getUserRepoDetails(
 			@RequestParam(name = "name", required = false, defaultValue = "Unknown") String name) {
 
-		final String uri = "https://api.github.com/users/{name}/repos";
 
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("name", name);
